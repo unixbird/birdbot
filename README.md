@@ -11,15 +11,22 @@ Currently this bot comes with the Discord module and the Kubectl binary.
 You may use this bot either as a container image or with a simple python command. The bot is compatible with python 3.8.
 
 ## Using with Kubernetes
-This is the intended use of the bot. Before doing this you will need to build the image using docker and to push the image to a registry of your choosing. 
-For this example we will be using DockerHub since its the most common.
+This is the intended use of the bot. Before doing this you will need to build the image using docker and to push the image to a registry of your choosing as Kubernetes does not use Local images and only images from a registry.
+For this example we will be using DockerHub since it's the most common.
 
 1. ```docker build . -t yourusernameondockerhub/examplename --no-cache```
    (The ```--no-cache``` is used because whenever I build the image it may already have the adding of the python script cached. This is to insure that      we get the newest script that was modified.)
 2. ```docker push yourusernameondockerhub/examplename```
    After you push this to a registry you will need to setup a Service Account for your deployment/pod. 
    
-1. ```kubectl create ns whateveryouwantthenametobe``` 
+1. ```kubectl create ns examplename```
+2. From the examples folder, we will use the serviceaccount.yml file. After you edit it to your needs run:
+   ```kubectl apply -f serviceaccount.yml```
+3. After this step you may go ahead and run: ```kubectl apply -f deployment.yml -n examplename```
+   
+   The bot should be up. You can check with the ```kubectl -n examplename logs -l app=birdbot``` to see the (Bot Ready) message. If the bot is crashing make sure you have the correct Secret token inserted into the ENVAR. 
+   If you don't receive an error go ahead and head over to the [Discord Developer portal](https://discord.com/developers/applications) and create a bot link to invite the bot to your discord. 
+   Depending on what the bot does I highly recommend that you keep the bot segregated into its own channel with only trusted users. 
 
 ## Using this with python
 By far the simplest method all that you would need to do is insert your Bot Token into the ('TOKEN') field after you have edited the python script to your liking and run:
