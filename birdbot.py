@@ -36,11 +36,13 @@ async def on_message(message):
     if message.content.startswith("!zomboid-restart"):
         args = process_message(message)
         result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/zomboid-deployment'])
-        await message.channel.send("executed restart of Zomboid")
+        if result == 0:
+          await message.channel.send("executed restart of Zomboid")
     if message.content.startswith("!librespeed-rollout"):
         args = process_message(message)
         result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/librespeed-deployment'])
-        await message.channel.send("Redployed librespeed")
+        if result == 0:
+          await message.channel.send("Redployed librespeed")
 #   example command for the bot to execute a script on the host if used outside of a container or if the script exists on the container
     if message.content.startswith("/brio-start"):
         args = process_message(message)
