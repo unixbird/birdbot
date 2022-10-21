@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: birdbot-deployment
+  labels:
+    app: birdbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: birdbot
+  template:
+    metadata:
+      labels:
+        app: birdbot
+    spec:
+      serviceAccountName: birdbot
+      containers:
+      - name: birdbot
+        image: unixbird/birdbot:latest
+        imagePullPolicy: Always
+        env:
+         - name:  TOKEN
+           value: 'INSERTYOURDISCORDBOTTOKEN'
