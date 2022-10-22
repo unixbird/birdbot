@@ -31,7 +31,8 @@ async def on_message(message):
 #        msg.author.send(Reject);
 #   A simple message to test to make sure the bot is listening and can respond to discord messages
     if message.content.startswith("!test"):
-        await message.channel.send('am alive')
+        hostname = os.environ.get('HOSTNAME')
+        await message.channel.send(hostname+ ' is alive')
 #   Examples of being able to have the bot run kubectl rollout commands for deployments upon message
     if message.content.startswith("!zomboid-restart"):
         args = process_message(message)
