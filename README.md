@@ -10,6 +10,15 @@ Currently this bot comes with the Discord module and the Kubectl binary.
 
 You may use this bot either as a container image or with a simple python command. The bot is compatible with python 3.8.
 
+## Environmental Variables
+
+| Envar | Purpose |
+| :----: | --- |
+| `PUID=1000` | To set the UserID for the bot user |
+| `PGID=1000` | To set the GroupID for the bot user |
+| `HOSTNAME=birdbot` | Set the hostname of the container for easier identification when invoking !test. Defaults to birdbot |
+| `TOKEN=token` | This is required to run the bot. If you don't set this the bot will continuously crash. |
+
 ## Using with Kubernetes
 This is the intended use of the bot. Before doing this you will need to build the image using docker and to push the image to a registry of your choosing as Kubernetes does not use Local images and only images from a registry.
 For this example we will be using DockerHub since it's the most common.
@@ -29,7 +38,7 @@ For this example we will be using DockerHub since it's the most common.
    Depending on what the bot does I highly recommend that you keep the bot segregated into its own channel with only trusted users. 
 
 ## Using this with python
-By far the simplest method all that you would need to do is insert your Bot Token into the ('TOKEN') field after you have edited the python script to your liking and run:
+By far the simplest method but not it's intended use. All that you would need to do is insert your Bot Token into the ('TOKEN') field after you have edited the python script to your liking and run:
 
 ``` python birdbot.py ```
 
