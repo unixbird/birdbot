@@ -2,34 +2,54 @@ import os
 import sys
 import discord
 import subprocess
+from discord.ext import commands
 
 # discord client
-client = discord.Client()
+#client = discord.Client()
 
 
-def process_message(message):
-    args = message.content.split(" ")
+#def process_message(message):
+#    args = message.content.split(" ")
 
-    return args
+#    return args
 
 # create a new event that lets us know the bot is up
-@client.event
-async def on_ready():
-     print("Its birbin time!")
-     print("(Bot Ready)")
+#@client.event
+#async def on_ready():
+#     print("Its birbin time!")
+#     print("(Bot Ready)")
+
+    
+bot = commands.Bot(command_prefix='!')
+
+@bot.command()
+@commands.has_role("AEG Swagmin")
+async def hello(ctx):
+    await ctx.send(ctx.guild)
+
+@bot.command()
+async def test(ctx):
+    hostname = os.environ.get('HOSTNAME')
+    await ctx.send(hostname+ ' is alive')
+
+@bot.command()
+@commands.has_role("AEG Swagmin")
+async def zomboidrestart(ctx):
+    result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/zomboid-deployment'])
+    if result == 0:
+      await ctx.send("executed restart of Zomboid")
+
+@bot.command()
+@commands.has_role("SysOps")
+async def librespeedrestart(ctx):
+    result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/librespeed-deployment'])
+    if result == 0:
+      await ctx.send("redeployed Librespeed")
 
 # listen for specific messages
-@client.event
+#@client.event
 async def on_message(message):
-# igore the following lines as they were experimental
-#    client.on('message', msg => {
-#    if (msg.channel instanceof Discord.DMChannel
-#        const Reject = new Discord.MessageEmbed()
-#            .setColor("#FF0000")
-#            .setTitle('Error')
-#            .setDescription('This command can only be used in the server.')
-#        msg.author.send(Reject);
-#   A simple message to test to make sure the bot is listening and can respond to discord messages
+#   DEPRECATED: A simple message to test to make sure the bot is listening and can respond to discord messages
     if message.content.startswith("!test"):
         hostname = os.environ.get('HOSTNAME')
         await message.channel.send(hostname+ ' is alive')
@@ -43,7 +63,7 @@ async def on_message(message):
         args = process_message(message)
         result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/librespeed-deployment'])
         if result == 0:
-          await message.channel.send("Redployed librespeed")
+          await message.channel.send("Redeployed librespeed")
 #   example command for the bot to execute a script on the host if used outside of a container or if the script exists on the container
     if message.content.startswith("/brio-start"):
         args = process_message(message)
@@ -60,5 +80,7 @@ async def on_message(message):
         await message.channel.send(file=discord.File('/home/steam/brio/server.log'))
 
 # Required to run the bot
-bot = os.environ.get('TOKEN')
-client.run(bot)
+token = os.environ.get('TOKEN')
+bot.run(token)                          
+#bot = os.environ.get('TOKEN')
+#client.run(bot)
