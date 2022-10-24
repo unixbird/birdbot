@@ -3,24 +3,9 @@ import sys
 import discord
 import subprocess
 from discord.ext import commands
-
-# discord client
-#client = discord.Client()
-
-
-#def process_message(message):
-#    args = message.content.split(" ")
-
-#    return args
-
-# create a new event that lets us know the bot is up
-#@client.event
-#async def on_ready():
-#     print("Its birbin time!")
-#     print("(Bot Ready)")
-
     
-bot = commands.Bot(command_prefix='!')
+prefix = os.environ.get('PREFIX')
+bot = commands.Bot(command_prefix=(prefix))
 
 @bot.command()
 @commands.has_role("AEG Swagmin")
@@ -46,24 +31,9 @@ async def librespeedrestart(ctx):
     if result == 0:
       await ctx.send("redeployed Librespeed")
 
-# listen for specific messages
-#@client.event
+# ------------------------------
+# beyond this point is code before the change to bot.commands and is to only be used as reference! It is HIGHLY recommended to use bot.commands instead
 async def on_message(message):
-#   DEPRECATED: A simple message to test to make sure the bot is listening and can respond to discord messages
-    if message.content.startswith("!test"):
-        hostname = os.environ.get('HOSTNAME')
-        await message.channel.send(hostname+ ' is alive')
-#   Examples of being able to have the bot run kubectl rollout commands for deployments upon message
-    if message.content.startswith("!zomboid-restart"):
-        args = process_message(message)
-        result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/zomboid-deployment'])
-        if result == 0:
-          await message.channel.send("executed restart of Zomboid")
-    if message.content.startswith("!librespeed-rollout"):
-        args = process_message(message)
-        result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/librespeed-deployment'])
-        if result == 0:
-          await message.channel.send("Redeployed librespeed")
 #   example command for the bot to execute a script on the host if used outside of a container or if the script exists on the container
     if message.content.startswith("/brio-start"):
         args = process_message(message)
@@ -82,5 +52,3 @@ async def on_message(message):
 # Required to run the bot
 token = os.environ.get('TOKEN')
 bot.run(token)                          
-#bot = os.environ.get('TOKEN')
-#client.run(bot)
