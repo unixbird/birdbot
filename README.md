@@ -12,12 +12,13 @@ Please note that it is expected that you will clone this repo and add/remove you
 
 ## Environmental Variables
 
-| Envar | Purpose |
-| :----: | --- |
-| `PUID=1000` | To set the UserID for the bot user |
-| `PGID=1000` | To set the GroupID for the bot user |
-| `HOSTNAME=birdbot` | Set the hostname of the container for easier identification when invoking !test. Defaults to birdbot |
-| `TOKEN=token` | This is required to run the bot. If you don't set this the bot will continuously crash. |
+| Envar | Purpose | Default |
+| :----: | --- | --- |
+| `PUID=1000` | To set the UserID for the bot user | `1000` |
+| `PGID=1000` | To set the GroupID for the bot user | `1000` |
+| `HOSTNAME=birdbot` | Set the hostname of the container for easier identification when invoking !test. | `birdbot` |
+| `TOKEN=token` | This is required to run the bot. If you don't set this the bot will continuously crash. | `token` THIS WILL FAIL IF LEFT DEFAULT |
+| `PREFIX=!` | The prefix you would like to use to execute commands eg. !test or -test | `!` |
 
 ## Using with Kubernetes
 This is the intended use of the bot. Before doing this you will need to build the image using docker and to push the image to a registry of your choosing as Kubernetes does not use Local images and only images from a registry.
