@@ -6,9 +6,9 @@ I made this bot so that ultimately I could make it so users on Discord would not
 
 Since then I have refined the bot and made it so that I can run kubectl commands with the addition of a Service Account on my Kubernetes Clusters.
 
-Currently this bot comes with the Discord module and the Kubectl binary.
-
 You may use this bot either as a container image or with a simple python command. The bot is compatible with python 3.8.
+
+Please note that it is expected that you will clone this repo and add/remove your own features as needed rather than use this as is. 
 
 ## Environmental Variables
 
@@ -22,7 +22,6 @@ You may use this bot either as a container image or with a simple python command
 ## Using with Kubernetes
 This is the intended use of the bot. Before doing this you will need to build the image using docker and to push the image to a registry of your choosing as Kubernetes does not use Local images and only images from a registry.
 For this example we will be using DockerHub since it's the most common.
-
 1. ```docker build . -t yourusernameondockerhub/examplename --no-cache```
    (The ```--no-cache``` is used because whenever I build the image it may already have the adding of the python script cached. This is to insure that      we get the newest script that was modified.)
 2. ```docker push yourusernameondockerhub/examplename```
