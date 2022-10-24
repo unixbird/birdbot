@@ -22,19 +22,20 @@ Please note that it is expected that you will clone this repo and add/remove you
 ## Using with Kubernetes
 This is the intended use of the bot. Before doing this you will need to build the image using docker and to push the image to a registry of your choosing as Kubernetes does not use Local images and only images from a registry.
 For this example we will be using DockerHub since it's the most common.
-1. ```docker build . -t yourusernameondockerhub/examplename --no-cache```
+1. First clone the repo. ```git clone https://github.com/unixbird/birdbot.git```
+2. ```cd birdbot```
+3. ```docker build . -t dockerusername/examplename --no-cache```
    (The ```--no-cache``` is used because whenever I build the image it may already have the adding of the python script cached. This is to insure that      we get the newest script that was modified.)
-2. ```docker push yourusernameondockerhub/examplename```
+4. ```docker push dockerusername/examplename```
    After you push this to a registry you will need to setup a Service Account for your deployment/pod. 
    
-1. ```kubectl create ns examplename```
-2. From the examples folder, we will use the serviceaccount.yml file. After you edit it to your needs run:
-   ```kubectl apply -f serviceaccount.yml```
-3. After this step you may go ahead and run: ```kubectl apply -f deployment.yml -n examplename```
+5. ```kubectl create ns examplename``` <<< This is optional if you don't intend to have the resources in a different namespace other than default.
+6. From the examples folder, we will use the serviceaccount.yml file. After you edit it to your needs run:
+   ```kubectl apply -f examples/serviceaccount.yml -n examplenamespace```
+7. After this step you may go ahead and run: ```kubectl apply -f examples/deployment.yml -n examplenamespace```
    
    The bot should be up. You can check with the ```kubectl -n examplename logs -l app=birdbot``` to see the (Bot Ready) message. If the bot is crashing make sure you have the correct Secret token inserted into the ENVAR. 
    If you don't receive an error go ahead and head over to the [Discord Developer portal](https://discord.com/developers/applications) and create a bot link to invite the bot to your discord. 
-   Depending on what the bot does I highly recommend that you keep the bot segregated into its own channel with only trusted users. 
 
 ## Using this with python
 By far the simplest method but not it's intended use. All that you would need to do is insert your Bot Token into the ('TOKEN') field after you have edited the python script to your liking and run:
