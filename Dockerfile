@@ -4,10 +4,12 @@ ARG PUID=1000
 ARG PGID=1000
 ARG TOKEN=needed
 ARG HOSTNAME=birdbot
+ARG PREFIX=!
 ENV PUID=$PUID
 ENV PGID=$PGID
 ENV TOKEN=$TOKEN
 ENV HOSTNAME=$HOSTNAME
+ENV PREFIX=$PREFIX
 
 # Installing Kubectl with the binary
 RUN apk add sudo && apk add curl
