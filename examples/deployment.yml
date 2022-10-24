@@ -21,5 +21,9 @@ spec:
         image: unixbird/birdbot:latest
         imagePullPolicy: Always
         env:
-         - name:  TOKEN
-           value: 'INSERTYOURDISCORDBOTTOKEN'
+         - name: TOKEN
+           value: 'YOURSECRETTOKEN'# You NEED to insert your own token or else the pod will crash
+         - name: PREFIX
+           value: '!'
+         - name: HOSTNAME
+           value: 'birdbot'
