@@ -23,7 +23,14 @@ async def zomboidrestart(ctx):
     result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/zomboid-deployment'])
     if result == 0:
       await ctx.send("executed restart of Zomboid")
-
+    
+@bot.command()
+@commands.has_role("AEG Swagmin")
+async def arkrestart(ctx):
+    result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/ark-deployment'])
+    if result == 0:
+      await ctx.send("executed restart of the Ark Server")
+                     
 @bot.command()
 @commands.has_role("SysOps")
 async def librespeedrestart(ctx):
