@@ -18,6 +18,7 @@ spec:
       serviceAccountName: birdbot
       containers:
       - name: birdbot
+      # Do not use this image as it does not exist! it is understood that you will build your own and push it to your own container image registry
         image: unixbird/birdbot:latest
         imagePullPolicy: Always
         env:
