@@ -24,6 +24,7 @@ async def test(ctx):
 @commands.has_role("YOURDISCORDROLE")
 async def zomboidrestart(ctx):
     discordserverid = YOURDISCORDSERVERID
+    server = ctx.message.guild
     if server.id == discordserverid:
       result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/zomboid-deployment'])
       await ctx.send("executed restart of Zomboid")
