@@ -13,7 +13,7 @@ ENV PREFIX=$PREFIX
 
 # Installing Kubectl with the binary
 RUN apk add sudo && apk add curl
-RUN curl -LO https://dl.k8s.io/release/v1.26.3/bin/linux/amd64/kubectl
+RUN curl -LO https://dl.k8s.io/release/v1.32.2/bin/linux/amd64/kubectl
 RUN sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 RUN apk del sudo curl
 
