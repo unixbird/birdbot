@@ -3,9 +3,12 @@ import sys
 import discord
 import subprocess
 from discord.ext import commands
-    
+
+intents = discord.Intents.default()
+intents.message_content = True
+
 prefix = os.environ.get('PREFIX')
-bot = commands.Bot(command_prefix=(prefix))
+bot = commands.Bot(command_prefix=(prefix), intents=intents)
 
 #this simply just echos the current server where this command was executed
 @bot.command()
@@ -28,6 +31,14 @@ async def zomboidrestart(ctx):
     if server.id == discordserverid:
       result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/zomboid-deployment'])
       await ctx.send("executed restart of Zomboid")
+
+# example if you didn't want to bind a specific role to a command
+@bot.command()
+async def sptclientrestart(ctx):
+    server = ctx.message.guild
+    result = subprocess.call(["kubectl", 'rollout', 'restart', 'deployment/sptclient-deployment'])
+    await ctx.send("executed restart of the SPT Client")
+
     
 # ------------------------------
 # beyond this point is code before the change to bot.commands and is to only be used as reference! It is HIGHLY recommended to use bot.command instead
