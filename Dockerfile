@@ -1,4 +1,4 @@
-FROM python:3.8-alpine
+FROM python:3.13-alpine
 
 ARG PUID=1000
 ARG PGID=1000
