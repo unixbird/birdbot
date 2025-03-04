@@ -6,7 +6,7 @@ I made this bot so that ultimately I could make it so users on Discord would not
 
 Since then I have refined the bot and made it so that I can run kubectl commands with the addition of a Service Account on my Kubernetes Clusters.
 
-You may use this bot either as a container image or with a simple python command. The bot is compatible with python 3.8.
+You may use this bot either as a container image or with a simple python command. The bot is compatible with python 3.13.
 
 Please note that it is expected that you will clone this repo and add/remove your own features as needed rather than use this as is. 
 
@@ -25,8 +25,7 @@ This is the intended use of the bot. Before doing this you will need to build th
 For this example we will be using DockerHub since it's the most common.
 1. First clone the repo. ```git clone https://github.com/unixbird/birdbot.git```
 2. ```cd birdbot```
-3. ```docker build . -t dockerusername/examplename --no-cache```
-   (The ```--no-cache``` is used because whenever I build the image it may already have the adding of the python script cached. This is to insure that      we get the newest script that was modified.)
+3. ```docker build -t dockerusername/examplename .```
 4. ```docker push dockerusername/examplename```
    After you push this to a registry you will need to setup a Service Account for your deployment/pod. 
    
